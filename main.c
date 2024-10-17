@@ -29,8 +29,9 @@ char piece_to_char(piece* p);
 
 /// @brief Affiche une ligne d'échiquier 
 /// @param i Le numéro de la ligne
+/// @param j Le numéro de la colonne
 /// @param ech L'échiquier en question
-void afficher_ligne(int i, echiquier* ech);
+void afficher_case(int i, int j, echiquier* ech);
 
 /// @brief Affiche un échiquier dans la console
 /// @param ech L'échiquier à afficher
@@ -40,56 +41,34 @@ void afficher_echiquier(echiquier* ech);
 /// @return Renvoie un pointeur vers une structure d'échiquier
 echiquier* creer_echiquier();
 
-/// @brief Crée un pion en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Renvoie un pointeur vers un pion
-piece* creer_pion(int i);
-
-/// @brief Crée un cavalier en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Renvoie un pointeur vers une pièce de cavalier
-piece* creer_cavalier(int i);
-
-
-/// @brief Crée un fou en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Le pointeur vers le fou
-piece* creer_fou(int i);
-
-/// @brief Crée une tour en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Le pointeur vers la tour
-piece* creer_tour(int i);
-
-
-/// @brief Crée une dame en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Le pointeur vers la dame
-piece* creer_dame(int i);
-
-
-/// @brief Crée le roi en fonction de son joueur
-/// @param i Le numéro du joueur
-/// @return Le pointeur vers le roi
-piece* creer_roi(int i);
-
 /// @brief Ajoute les mouvements possibles des pièces à l'échiquier
 /// @param e L'échiquier qui reçoit le tableau
-void initialize_moves(echiquier* e);
+void creer_mouvements(echiquier* e);
+
+/// @brief Ajoute des pointeurs vers les pièces de l'échiquier
+/// @param e L'échiquier qui reçoit les pièces
+void creer_cases(echiquier* e);
+
+/// @brief Créer un pointeur vers une pièce
+/// @param id Identifiant de la pièce
+/// @param i_joueur Identifiant du joueur
+/// @param n_repet Nombre de répétition du mouvement
+/// @return Pointeur vers la pièce
+piece* creer_piece(int id, int i_joueur, int n_repet);
 
 
 
-void afficher_ligne(int i, echiquier* ech) {
-    for (int j = 0; j < 8; j++) {
-        if (ech->cases[i][j] != NULL) {
-            printf("%c", piece_to_char(ech->cases[i][j]));
-        } else if ((i+j)%2 == 0) {
-            printf("#");
-        } else {
-            printf(" ");
-        }
+
+
+
+void afficher_case(int i, int j, echiquier* ech) {
+    if (ech->cases[i][j] != NULL) {
+        printf("%c", piece_to_char(ech->cases[i][j]));
+    } else if ((i+j)%2 == 0) {
+        printf("#");
+    } else {
+        printf(" ");
     }
-    printf("\n");
 }
 
 char piece_to_char(piece* p) {
@@ -110,7 +89,10 @@ char piece_to_char(piece* p) {
 
 void afficher_echiquier(echiquier* ech) {
     for (int i = 0; i < 8; i++) {
-        afficher_ligne(i, ech);
+        for (int j = 0; j < 8; j++) {
+            afficher_case(i, j, ech);
+        }
+        printf("\n");
     } 
 }
 
@@ -124,40 +106,47 @@ echiquier* creer_echiquier() {
         e->cases[i] = (piece**)malloc(8 * sizeof(piece*));
     }
 
-    // on ajoute les pièces
 
-    for (int i_joueur = 0; i_joueur < 2; i_joueur++) {
-        int lig = (i_joueur%2 == 0) ? 0 : 7;
+    creer_cases(e);
 
-        e->cases[lig][3] = creer_dame(i_joueur);
-        e->cases[lig][4] = creer_roi(i_joueur);
-
-        for (int i_piece = 0; i_piece < 2; i_piece++) {
-            e->cases[lig][7 * i_piece] = creer_tour(i_joueur);
-            e->cases[lig][1 + 5 * i_piece] = creer_cavalier(i_joueur);
-            e->cases[lig][2 + 3 * i_piece] = creer_fou(i_joueur);
-
-            for (int i_pion = 0; i_pion < 4; i_pion++) {
-                int lig_pion = (i_joueur%2 == 0) ? 1 : 6;
-                e->cases[lig_pion][i_pion + 4 * i_piece] = creer_pion(i_joueur);
-            }
-        }
-    }
-    for (int i = 2; i < 6; i++) {
-        for (int j = 0; j < 8; j++) {
-            e->cases[i][j] = NULL;
-        }
-    }
-
-    initialize_moves(e);
+    creer_mouvements(e);
 
 
     return e;
 }
 
 
+void creer_cases(echiquier* e) {
+    // cases vides
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            e->cases[i][j] = NULL;
+        }
+    }
 
-void initialize_moves(echiquier* e) {
+
+    for (int i_joueur = 0; i_joueur < 2; i_joueur++) {
+        int lig = (i_joueur%2 == 0) ? 0 : 7;
+
+        e->cases[lig][3] = creer_piece(4, i_joueur, 8); // dame
+        e->cases[lig][4] = creer_piece(5, i_joueur, 1); // roi
+
+        for (int i_piece = 0; i_piece < 2; i_piece++) {
+            e->cases[lig][7 * i_piece] = creer_piece(3, i_joueur, 8); // tour
+            e->cases[lig][1 + 5 * i_piece] = creer_piece(1, i_joueur, 1); // cavalier
+            e->cases[lig][2 + 3 * i_piece] = creer_piece(2, i_joueur, 8); // fou
+        }
+
+        for (int i_pion = 0; i_pion < 8; i_pion++) {
+            int lig_pion = (i_joueur%2 == 0) ? 1 : 6;
+            e->cases[lig_pion][i_pion] = creer_piece(0, i_joueur, 1); // pion
+        }
+    }
+
+}
+
+
+void creer_mouvements(echiquier* e) {
     int n_mouv[6] = {3, 8, 4, 4, 8, 8};
 
     int list_mouv[6][8][2] = {
@@ -182,85 +171,18 @@ void initialize_moves(echiquier* e) {
 }
 
 
+piece* creer_piece(int id, int i_joueur, int n_repet) {
+    piece* ma_piece = (piece*)malloc(sizeof(piece));
 
-piece* creer_pion(int i) {
-    piece* pion = (piece*)malloc(sizeof(piece));
+    ma_piece->id = id;
+    ma_piece->joueur = i_joueur;
 
-    pion->id = 0;
-    pion->n_repet = 1;
+    ma_piece->en_vie = 1;
+    ma_piece->n_repet = n_repet;
 
-    pion->joueur = i;
-    pion->en_vie = 1;
-
-    return pion;
+    return ma_piece;
 }
 
-
-
-piece* creer_cavalier(int i) {
-    piece* cavalier = (piece*)malloc(sizeof(piece));
-
-    cavalier->id = 1;
-    cavalier->n_repet = 1;
-    
-    cavalier->joueur = i;
-    cavalier->en_vie = 1;
-
-    return cavalier;
-}
-
-
-
-piece* creer_fou(int i) {
-    piece* fou = (piece*)malloc(sizeof(piece));
-
-    fou->id = 2;
-    fou->n_repet = 8;
-
-    fou->joueur = i;
-    fou->en_vie = 1;
-
-    return fou;
-}
-
-
-
-piece* creer_tour(int i) {
-    piece* tour = (piece*)malloc(sizeof(piece));
-
-    tour->id = 3;
-    tour->n_repet = 8;
-    tour->joueur = i;
-    tour->en_vie = 1;
-
-    return tour;
-}
-
-
-
-piece* creer_dame(int i) {
-    piece* dame = (piece*)malloc(sizeof(piece));
-
-    dame->id = 4;
-    dame->n_repet = 8;
-    dame->joueur = i;
-    dame->en_vie = 1;
-
-    return dame;
-}
-
-
-
-piece* creer_roi(int i) {
-    piece* roi = (piece*)malloc(sizeof(piece));
-
-    roi->id = 5;
-    roi->n_repet = 1;
-    roi->joueur = i;
-    roi->en_vie = 1;
-
-    return roi;
-}
 
 
 
