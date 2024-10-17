@@ -1,4 +1,11 @@
 
+/// @brief Couple d'entier pour représenter un vecteur
+struct vecteur {
+    int x;
+    int y;
+};
+typedef struct vecteur vecteur;
+
 /// @brief Une pièce d'un jeu d'échec
 struct piece {
     int id; // identifiant de la pièce (0: pion, 1: cavalier, 2: fou, 3: tour, 4: dame, 5: roi)
@@ -11,9 +18,10 @@ typedef struct piece piece;
 /// @brief Un tableau des cases de l'échiquier contenant des pointeurs vers les pieces
 struct echiquier {
     piece*** cases; // cases de l'échiquier
-    int*** mouv; // mouvements possibles des pièces
+    vecteur** mouv; // mouvements possibles des pièces
 };
 typedef struct echiquier echiquier;
+
 
 
 
