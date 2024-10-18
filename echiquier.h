@@ -63,3 +63,8 @@ piece* creer_piece(int id, int i_joueur, int n_repet);
 /// @brief Libère la mémoire liée à l'échiquier
 /// @param e L'échiquier à vider
 void liberer_echiquier(echiquier* e);
+
+/// @brief Convertit une coordonnée du plateau (ex: d4) en vecteur (ex: {3, 3})
+/// @param coord Coordonnée à convertir
+/// @return Le vecteur correspondant à la coordonnée
+vecteur txt_en_vecteur(char* coord);
