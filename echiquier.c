@@ -145,3 +145,21 @@ void liberer_echiquier(echiquier* e) {
     
     free(e);
 }
+
+
+vecteur txt_en_vecteur(char* coord) {
+    int i_char = 0;
+    while (coord[i_char]!='\0' && i_char < 4) {
+        i_char++;
+    }
+    if (i_char != 2) {
+        printf("Pas le bon nombre de caractères\n");
+        exit(EXIT_FAILURE);
+    }
+    if (coord[0] < 'a' || coord[0] > 'h' || coord[1] < '1' || coord[1] > '8') {
+        printf("Mauvaises coordonnées\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return (vecteur){(int)(coord[0]-'a'), (int)(coord[1]-'1')};
+}
