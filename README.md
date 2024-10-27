@@ -25,9 +25,18 @@ Current output :
 ```
 TCFDRFCT
 PPPPPPPP
-# # # # 
+# # # #
  # # # #
-# # # # 
+# # # #
+ # # # #
+PPPPPPPP
+TCFDRFCT
+e2 e4
+TCFDRFCT
+PPPP PPP
+# # # #
+ # #P# #
+# # # #
  # # # #
 PPPPPPPP
 TCFDRFCT
