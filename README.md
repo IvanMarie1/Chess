@@ -23,21 +23,24 @@ gcc -Wall -Werror -Wextra main.c -o chess ./echiquier.c
 ```
 Current output :
 ```
-TCFDRFCT
+RNBQKBNR
 PPPPPPPP
 # # # #
  # # # #
 # # # #
  # # # #
 PPPPPPPP
-TCFDRFCT
+RNBQKBNR
+
 e2 e4
-TCFDRFCT
+
+RNBQKBNR
 PPPP PPP
 # # # #
  # #P# #
 # # # #
  # # # #
 PPPPPPPP
-TCFDRFCT
+RNBQKBNR
+
 ```
