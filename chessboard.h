@@ -14,7 +14,6 @@ struct piece {
 	int player; // player's number
 	int n_moves; // number of different moves possible
 	bool can_repeat; // true if the piece can repeat movements
-	bool alive; // true if the piece is alive
 };
 typedef struct piece piece;
 
