@@ -19,11 +19,11 @@ char piece_to_char (piece *p) {
 	int id_piece = p->id;
 	switch (id_piece) {
 	case 0:return 'P';
-	case 1:return 'C';
-	case 2:return 'F';
-	case 3:return 'T';
-	case 4:return 'D';
-	case 5:return 'R';
+	case 1:return 'N';
+	case 2:return 'B';
+	case 3:return 'R';
+	case 4:return 'Q';
+	case 5:return 'K';
 	default:return '?';
 	}
 }
