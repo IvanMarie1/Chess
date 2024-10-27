@@ -108,7 +108,6 @@ piece *create_piece (int id, int i_player, int n_moves, bool can_repeat) {
 	my_piece->id = id;
 	my_piece->player = i_player;
 
-	my_piece->alive = true;
 	my_piece->can_repeat = can_repeat;
 	my_piece->n_moves = n_moves;
 
