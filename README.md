@@ -24,4 +24,8 @@ Compiled with :
 ```
 gcc -Wall -Werror -Wextra main.c -o chess ./echiquier.c
 ```
-Current examples :
+### Current examples :
+
+Example 1 (illegal knight move)            | Example 2 (correct knight move)
+-------------------------------------------|--------------------------------------------
+<img src="./img/example1.png" width="500"> | <img src="./img/example1.png" width="500">
