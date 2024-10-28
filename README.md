@@ -7,7 +7,6 @@ a chess game using c
 
 ## Todo
 - move a piece, capture etc.
-  - Check if the move is possible
   - Manage pawn rules : direction, capturing, first move, promoting, en passant (see [Wikipedia](https://en.wikipedia.org/wiki/Pawn_(chess)#Placement_and_movement))
 - manage the conversion between coordinate and chess notations (ex: Be5) (see [Wikipedia page](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)))
 - test check / checkmate
@@ -25,26 +24,4 @@ Compiled with :
 ```
 gcc -Wall -Werror -Wextra main.c -o chess ./echiquier.c
 ```
-Current output :
-```
-RNBQKBNR
-PPPPPPPP
-# # # #
- # # # #
-# # # #
- # # # #
-PPPPPPPP
-RNBQKBNR
-
-e2 e4
-
-RNBQKBNR
-PPPP PPP
-# # # #
- # #P# #
-# # # #
- # # # #
-PPPPPPPP
-RNBQKBNR
-
-```
+Current examples :
