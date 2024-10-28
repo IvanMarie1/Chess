@@ -4,6 +4,8 @@ a chess game using c
 ## Features
 - initialize a checkboard and the pieces
 - display a checkboard on the console
+- determine whether a move is legal or not
+- move a piece from string instruction
 
 ## Todo
 - move a piece, capture etc.
