@@ -1,6 +1,5 @@
 #include <stdbool.h>
 
-
 /// @brief Pair of integers to represent a vector
 struct vector {
 	int x;
@@ -24,9 +23,9 @@ struct chessboard {
 };
 typedef struct chessboard chessboard;
 
-/// @brief Convert a piece into a character
+/// @brief Convert a piece into a character corresponding to the piece
 /// @param p Piece to convert
-/// @return A character corresponding to the piece
+/// @return A character representing the piece
 char piece_to_char (piece *p);
 
 /// @brief Print a chessboard square
@@ -69,11 +68,10 @@ void free_chessboard (chessboard *chs);
 vector text_to_vector (char *coord);
 
 /// @brief Determine the possible moves of a piece
-/// @param row Current row of the piece
-/// @param col Current column of the piece
+/// @param pos Current position of the piece
 /// @param chs Chessboard where the piece is located
-/// @return An array of vector corresponding to the possible moves
-vector *get_moves (int row, int col, chessboard *chs);
+/// @return An array of vector corresponding to the possible moves (ending by {0, 0})
+vector *get_moves (vector pos, chessboard *chs);
 
 /// @brief Move a piece on the chessboard
 /// @param start Current position of the piece
@@ -85,3 +83,11 @@ void move_piece (vector start, vector end, chessboard *chs);
 /// @param action String containing the instruction
 /// @param chs Chessboard containing pieces
 void play_piece (const char *action, chessboard *chs);
+
+
+/// @brief Check if a move can be executed on a chessboard
+/// @param pos Current position of the piece
+/// @param move	Movement to check the viability
+/// @param chs Chessboard containing pieces
+/// @return A boolean determining whether the move is legal
+bool is_move_legal (vector pos, vector move, chessboard *chs);
