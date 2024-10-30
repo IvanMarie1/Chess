@@ -10,6 +10,7 @@ a chess game using c
 ## Todo
 - move a piece, capture etc.
   - Manage pawn rules : direction, capturing, first move, promoting, en passant (see [Wikipedia](https://en.wikipedia.org/wiki/Pawn_(chess)#Placement_and_movement))
+- add a move history
 - manage the conversion between coordinate and chess notations (ex: Be5) (see [Wikipedia page](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)))
 - test check / checkmate
 - run a game
